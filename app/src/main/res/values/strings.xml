@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BudgetingApp</string>
+    <string name="receiptinfo_description">Description</string>
+    <string name="receiptinfo_name">Name</string>
+    <string name="receiptinfo_total">Total</string>
+    <string name="receiptinfo_submit">Submit</string>
+</resources>
