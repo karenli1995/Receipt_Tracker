@@ -36,26 +36,6 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         setUpView();
-
-        test();
-    }
-
-    private void test(){
-        Button btnLoad = (Button) findViewById(R.id.btn_load);
-
-        View.OnClickListener listener = new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                ReceiptFragment hello = new ReceiptFragment();
-                fragmentTransaction.replace(R.id.receiptFragment, hello, "HELLO");
-                fragmentTransaction.commit();
-            }
-        };
-
-        btnLoad.setOnClickListener(listener);
     }
 
     private void setUpView() {
@@ -78,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
-                previewCapturedImage();
+                createReceiptFragment();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(),
                         "User cancelled image capture", Toast.LENGTH_SHORT)
