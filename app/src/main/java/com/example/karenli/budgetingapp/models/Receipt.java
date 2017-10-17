@@ -1,4 +1,4 @@
-package models;
+package com.example.karenli.budgetingapp.models;
 
 import android.text.format.DateFormat;
 
@@ -10,16 +10,20 @@ public class Receipt {
     private String myName;
     private String myDescription;
     private String myImgPath;
-    private DateFormat myDate;
-    private long myTotal;
+    private int myMonth;
+    private int myYear;
+    private double myTotal;
 
-    public Receipt(String myName, String myDescription, String myImgPath, DateFormat myDate, long myTotal) {
+    public Receipt(String myName, String myDescription, String myImgPath, int myMonth, int myYear, double myTotal) {
         this.myName = myName;
         this.myDescription = myDescription;
         this.myImgPath = myImgPath;
-        this.myDate = myDate;
+        this.myMonth = myMonth;
+        this.myYear = myYear;
         this.myTotal = myTotal;
     }
+
+    public Receipt() {}
 
     public String getMyName() {
         return myName;
@@ -37,19 +41,35 @@ public class Receipt {
         this.myDescription = myDescription;
     }
 
-    public DateFormat getMyDate() {
-        return myDate;
+    public int getMyMonth() {
+        return myMonth;
     }
 
-    public void setMyDate(DateFormat myDate) {
-        this.myDate = myDate;
+    public void setMyMonth(int myMonth) {
+        this.myMonth = myMonth;
     }
 
-    public long getMyTotal() {
+    public int getMyYear() {
+        return myYear;
+    }
+
+    public void setMyYear(int myYear) {
+        this.myYear = myYear;
+    }
+
+    public double getMyTotal() {
         return myTotal;
     }
 
     public void setMyTotal(long myTotal) {
         this.myTotal = myTotal;
+    }
+
+    public String getMyImgPath() {
+        return myImgPath;
+    }
+
+    public void setMyImgPath(String myImgPath) {
+        this.myImgPath = myImgPath;
     }
 }

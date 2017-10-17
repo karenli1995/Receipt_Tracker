@@ -8,14 +8,19 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+//import android.support.v4.app.FragmentManager;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.app.DialogFragment;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +29,9 @@ import java.util.Date;
 
 import android.widget.Button;
 
-public class HomeActivity extends AppCompatActivity {
+import com.squareup.picasso.Picasso;
+
+public class HomeActivity extends BaseActivity {
     public static final int REQUEST_IMAGE_CAPTURE = 1;
 
     private FloatingActionButton myAddReceiptBtn;
@@ -39,6 +46,10 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setUpView() {
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         myAddReceiptBtn = (FloatingActionButton) findViewById(R.id.btnAddReceipt);
         this.addOnClickListener();
 
@@ -58,7 +69,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
-                createReceiptFragment();
+//                    Bitmap photo = (Bitmap) data.getExtras().get("data");
+//                    mImageView.setImageBitmap(photo);
+//                testSetPic();
+//                previewCapturedImage();
+            createReceiptFragment();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(),
                         "User cancelled image capture", Toast.LENGTH_SHORT)
@@ -69,10 +84,14 @@ public class HomeActivity extends AppCompatActivity {
                         .show();
             }
         }
-
     }
 
     private void createReceiptFragment() {
+        //TODO: delete
+        Toast.makeText(getApplicationContext(),
+                getMyCurrentPhotoPath(), Toast.LENGTH_LONG)
+                .show();
+
         ReceiptFragment receiptFragment = new ReceiptFragment();
 
         Bundle args = new Bundle();
@@ -80,8 +99,10 @@ public class HomeActivity extends AppCompatActivity {
         receiptFragment.setArguments(args);
 
         FragmentManager fm = getFragmentManager();
+        fm.popBackStack();
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.add(R.id.receiptFragment, receiptFragment);
+        fragmentTransaction.replace(R.id.receiptFragment, receiptFragment);
+        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -96,6 +117,10 @@ public class HomeActivity extends AppCompatActivity {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
+
+    private void testSetPic() {
+        Picasso.with(this).load(myCurrentPhotoPath).into(mImageView);
     }
 
     private void setPic() {

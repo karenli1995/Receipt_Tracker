@@ -5,7 +5,6 @@ package com.example.karenli.budgetingapp;
  */
 
 import android.app.Fragment;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -13,7 +12,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 
-import models.Receipt;
+import com.example.karenli.budgetingapp.db.DatabaseHelper;
+import com.example.karenli.budgetingapp.models.Receipt;
 
 public class ReceiptFragment extends Fragment {
     private EditText etName;
@@ -48,13 +48,17 @@ public class ReceiptFragment extends Fragment {
                 //TODO: error checks for information entry && modify the date
                 String name = etName.getText().toString();
                 String descr = etDescr.getText().toString();
-                long total = Long.parseLong(etTotal.getText().toString());
+                double total = Double.parseDouble(etTotal.getText().toString());
 
                 String imgPath = getArguments().getString("imgPath");
-                DateFormat date = new DateFormat();
+                int year = Integer.parseInt(imgPath.substring(4, 8));
+                int month = Integer.parseInt(imgPath.substring(8, 10));
 
-                Receipt receipt = new Receipt(name, descr, imgPath, date, total);
-                //TODO: persist receipt to the db
+                Receipt receipt = new Receipt(name, descr, imgPath, month, year, total);
+                //persist receipt to the db
+                DatabaseHelper databaseHelper = DatabaseHelper.getInstance(getContext());
+                databaseHelper.addReceipt(receipt);
+
                 //TODO: update home page with updated data
 
                 getActivity().finish();
