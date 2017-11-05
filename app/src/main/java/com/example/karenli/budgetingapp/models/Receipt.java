@@ -7,6 +7,7 @@ import android.text.format.DateFormat;
  */
 
 public class Receipt {
+    private long myId;
     private String myName;
     private String myDescription;
     private String myImgPath;
@@ -24,6 +25,14 @@ public class Receipt {
     }
 
     public Receipt() {}
+
+    public long getMyId() {
+        return myId;
+    }
+
+    public void setMyId(long myId) {
+        this.myId = myId;
+    }
 
     public String getMyName() {
         return myName;
@@ -61,7 +70,7 @@ public class Receipt {
         return myTotal;
     }
 
-    public void setMyTotal(long myTotal) {
+    public void setMyTotal(double myTotal) {
         this.myTotal = myTotal;
     }
 

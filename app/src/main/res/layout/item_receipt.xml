@@ -38,5 +38,6 @@
         android:layout_alignBottom="@+id/tvName"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="20dp"
+        android:inputType="numberDecimal"
         android:text="TextView" />
 </RelativeLayout>

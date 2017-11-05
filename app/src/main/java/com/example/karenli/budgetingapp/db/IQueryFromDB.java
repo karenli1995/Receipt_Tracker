@@ -2,10 +2,12 @@ package com.example.karenli.budgetingapp.db;
 
 import com.example.karenli.budgetingapp.models.Receipt;
 
+import java.util.List;
+
 /**
  * Created by karenli on 10/13/17.
  */
 
-public interface AddToDBHelper {
-    void addReceipt(Receipt receipt);
+public interface IQueryFromDB {
+    List<Receipt> getReceipts(int month, int year);
 }

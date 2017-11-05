@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="com.example.karenli.budgetingapp.HomeActivity">
 
-    <include layout="@layout/toolbar_app" />
+    <include
+        layout="@layout/toolbar_app" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btnAddReceipt"
@@ -18,7 +20,7 @@
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
         android:clickable="true"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@android:color/holo_blue_dark"
         app:fabSize="normal"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:layout_editor_absoluteX="311dp"
@@ -28,40 +30,10 @@
         android:id="@+id/imageView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:srcCompat="@mipmap/ic_launcher"
-        android:layout_marginTop="61dp"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/receiptFragment"
-        android:layout_marginStart="18dp" />
-
-    <FrameLayout
-        android:id="@+id/receiptFragment"
-        class="com.example.karenli.budgetingapp.ReceiptFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal"></FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/viewReceiptsFragment"
-        class="com.example.karenli.budgetingapp.ViewReceiptsFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal"></FrameLayout>
-
-    <EditText
-        android:id="@+id/editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:layout_marginTop="98dp"
-        android:layout_toStartOf="@+id/btnAddReceipt"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="61dp"
+        android:visibility="visible"
+        app:srcCompat="@mipmap/ic_launcher" />
 
 </RelativeLayout>

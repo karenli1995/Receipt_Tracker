@@ -38,6 +38,16 @@
             android:parentActivityName=".HomeActivity" >
         </activity>
 
+        <activity
+            android:name=".CreateReceiptActivity"
+            android:parentActivityName=".HomeActivity" >
+        </activity>
+
+        <activity
+            android:name=".ChosenReceiptActivity"
+            android:parentActivityName=".ViewReceiptsActivity" >
+        </activity>
+
     </application>
 
 </manifest>

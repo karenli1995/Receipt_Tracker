@@ -44,7 +44,7 @@ public class ReceiptArrayAdapter extends ArrayAdapter<Receipt> {
         tvDescr.setText(receipt.getMyDescription());
         tvTotal.setText(Double.toString(receipt.getMyTotal()));
 
-        Picasso.with(getContext()).load(receipt.getMyImgPath()).into(ivImage);
+//        Picasso.with(getContext()).load(receipt.getMyImgPath()).into(ivImage);
 
         return convertView;
     }

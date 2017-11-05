@@ -6,28 +6,17 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-//import android.support.v4.app.FragmentManager;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.app.DialogFragment;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import android.widget.Button;
 
 import com.squareup.picasso.Picasso;
 
@@ -46,9 +35,7 @@ public class HomeActivity extends BaseActivity {
     }
 
     private void setUpView() {
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setUpToolbar();
 
         myAddReceiptBtn = (FloatingActionButton) findViewById(R.id.btnAddReceipt);
         this.addOnClickListener();
@@ -67,13 +54,19 @@ public class HomeActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(data == null){
+            Toast.makeText(getApplicationContext(),
+                    "Data is null", Toast.LENGTH_LONG)
+                    .show();
+        }
+
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
             if (resultCode == RESULT_OK) {
 //                    Bitmap photo = (Bitmap) data.getExtras().get("data");
 //                    mImageView.setImageBitmap(photo);
 //                testSetPic();
 //                previewCapturedImage();
-            createReceiptFragment();
+                createReceiptActivity();
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(),
                         "User cancelled image capture", Toast.LENGTH_SHORT)
@@ -86,24 +79,17 @@ public class HomeActivity extends BaseActivity {
         }
     }
 
-    private void createReceiptFragment() {
+    private void createReceiptActivity() {
         //TODO: delete
         Toast.makeText(getApplicationContext(),
                 getMyCurrentPhotoPath(), Toast.LENGTH_LONG)
                 .show();
 
-        ReceiptFragment receiptFragment = new ReceiptFragment();
-
-        Bundle args = new Bundle();
-        args.putString("imgPath", getMyCurrentPhotoPath());
-        receiptFragment.setArguments(args);
-
-        FragmentManager fm = getFragmentManager();
-        fm.popBackStack();
-        FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.receiptFragment, receiptFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        Intent intent = new Intent(this, CreateReceiptActivity.class);
+        intent.putExtra("imgPath", myCurrentPhotoPath);
+        intent.putExtra("year", myYear);
+        intent.putExtra("month", myMonth);
+        startActivity(intent);
     }
 
     private void previewCapturedImage() {
@@ -163,6 +149,8 @@ public class HomeActivity extends BaseActivity {
         private static final String JPEG_FILE_SUFFIX = ".jpg";
 
         private String myCurrentPhotoPath;
+        private int myYear;
+        private int myMonth;
 
         public String getMyCurrentPhotoPath() {
             return myCurrentPhotoPath;
@@ -199,6 +187,8 @@ public class HomeActivity extends BaseActivity {
         private File createImageFile() throws IOException {
             // Create an image file name
             String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+            myYear = Integer.parseInt(timeStamp.substring(0,4));
+            myMonth = Integer.parseInt(timeStamp.substring(4,6)) - 1;
             String imageFileName = JPEG_FILE_PREFIX + timeStamp + "_";
             File albumF = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 //        File albumF = getAlbumDir();
